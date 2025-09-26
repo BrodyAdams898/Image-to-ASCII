@@ -1,0 +1,3 @@
+Pillow docs: https://pillow.readthedocs.io/en/stable/
+
+Guide: https://robertheaton.com/2018/06/12/programming-projects-for-advanced-beginners-ascii-art/
