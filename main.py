@@ -1,20 +1,29 @@
 from PIL import Image
+from pathlib import Path
 
-# Open and set image scale
-im = Image.open("images/ascii-pineapple.jpg")
+#* Display available images to convert
+images_folder = Path("images")
+image_files = [f for f in images_folder.iterdir() if f.suffix.lower() in [".png", ".jpg", ".jpeg"]]
+for file in image_files:
+    print(file.name)
+
+#* Open and set image scale
+im_path = "images/" + str(input("Enter the full name of your image form the 'images/' directory: "))
+im = Image.open(im_path).convert("RGB") # Drop alpha channel if it exist
 print(im.format, im.size, im.mode)
 
-scale = 0.1
+im_scale = float(input("Enter the images scale (Recommended 0.1 - 0.3): "))
 
-im_width = int(im.width * scale)
-im_height = int(im.height * scale)
+im_width = int(im.width * im_scale)
+im_height = int(im.height * im_scale)
 im_size = (im_width, im_height)
 
 im = im.resize(im_size)
-print(f"New Size is: {im_size}")
+
+input(f"New Size is: {im_size}, Press ENTER to print")
 
 
-ascii_chars = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+ascii_chars = "─=#▒██"
 num_of_chars = len(ascii_chars)
 
 # # y = row, x = Element in row
