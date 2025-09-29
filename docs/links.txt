@@ -1,3 +1,8 @@
 Pillow docs: https://pillow.readthedocs.io/en/stable/
 
+Prompt Toolkit: https://python-prompt-toolkit.readthedocs.io/en/stable/
+
+Pathlib: https://docs.python.org/3/library/pathlib.html
+
+
 Guide: https://robertheaton.com/2018/06/12/programming-projects-for-advanced-beginners-ascii-art/

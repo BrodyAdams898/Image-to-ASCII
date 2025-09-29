@@ -1,17 +1,28 @@
 from PIL import Image
 from pathlib import Path
+from prompt_toolkit.shortcuts import radiolist_dialog
+
 
 #* Display available images to convert
 images_folder = Path("images")
-image_files = [f for f in images_folder.iterdir() if f.suffix.lower() in [".png", ".jpg", ".jpeg"]]
-for file in image_files:
-    print(file.name)
+image_files = [str(file) for file in images_folder.iterdir() if file.suffix.lower() in [".png", ".jpg", ".jpeg"]]
 
-#* Open and set image scale
-im_path = "images/" + str(input("Enter the full name of your image form the 'images/' directory: "))
-im = Image.open(im_path).convert("RGB") # Drop alpha channel if it exist
-print(im.format, im.size, im.mode)
+# radiolist_dialog wants (value, label) tuples
+dialog_choices = [(file, Path(file).name) for file in image_files]
 
+file_path = radiolist_dialog(
+    title = "Image Picker",
+    text = "Choose an image to convert:",
+    values = dialog_choices,
+).run()
+
+if file_path is not None:
+    im = Image.open(file_path).convert("RGB")
+    print(im.format, im.size, im.mode)
+else:
+    print("No selection made.")
+
+#* Set  scale
 im_scale = float(input("Enter the images scale (Recommended 0.1 - 0.3): "))
 
 im_width = int(im.width * im_scale)
@@ -23,17 +34,10 @@ im = im.resize(im_size)
 input(f"New Size is: {im_size}, Press ENTER to print")
 
 
+
+#* Set ASCII characters
 ascii_chars = "─=#▒██"
 num_of_chars = len(ascii_chars)
-
-# # y = row, x = Element in row
-# # Easier to visualize initialization of matrixes as a for-loop
-# rgb_matrix = []
-# for y in range(im_height):
-#     row = []
-#     for x in range(im_width):
-#         row.append(im.getpixel)
-#     rgb_matrix.append(row)
 
 def getPixelBrightness(x, y):
     rgb_value = im.getpixel((x, y))
@@ -48,6 +52,15 @@ rgb_matrix = [[im.getpixel((x, y)) for x in range(im_width)] for y in range(im_h
 brightness_matrix = [[getPixelBrightness(x, y) for x in range(im_width)] for y in range(im_height)]
 
 ascii_matrix = [[convertToAscii(ascii_chars, num_of_chars, brightness_matrix[y][x]) for x in range(im_width)] for y in range(im_height)]
+
+# # y = row, x = Element in row
+# # Easier to visualize initialization of matrixes as a for-loop
+# rgb_matrix = []
+# for y in range(im_height):
+#     row = []
+#     for x in range(im_width):
+#         row.append(im.getpixel)
+#     rgb_matrix.append(row)
 
 # Print ASCII image
 for y in range(im_height):
