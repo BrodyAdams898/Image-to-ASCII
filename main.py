@@ -5,23 +5,17 @@ from prompt_toolkit.shortcuts import radiolist_dialog
 
 #* Display available images to convert
 images_folder = Path("images")
-image_files = [str(file) for file in images_folder.iterdir() if file.suffix.lower() in [".png", ".jpg", ".jpeg"]]
+image_files = [file for file in images_folder.iterdir() if file.suffix.lower() in [".png", ".jpg", ".jpeg"]]
 
-# radiolist_dialog wants (value, label) tuples
-dialog_choices = [(file, Path(file).name) for file in image_files]
+option_list = []
+for file in image_files:
+    option = (file, str(file).replace("images\\", "").replace("images/", ""))
+    print(option[1])
+    option_list.append(option)
 
-file_path = radiolist_dialog(
-    title = "Image Picker",
-    text = "Choose an image to convert:",
-    values = dialog_choices,
-).run()
 
-if file_path is not None:
-    im = Image.open(file_path).convert("RGB")
-    print(im.format, im.size, im.mode)
-else:
-    print("No selection made.")
-
+# im = Image.open(file_path).convert("RGB")
+# print(im.format, im.size, im.mode)
 #* Set  scale
 im_scale = float(input("Enter the images scale (Recommended 0.1 - 0.3): "))
 
