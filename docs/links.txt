@@ -1,4 +1,4 @@
-Pillow docs: https://pillow.readthedocs.io/en/stable/
+Pillow: https://pillow.readthedocs.io/en/stable/
 
 Prompt Toolkit: https://python-prompt-toolkit.readthedocs.io/en/stable/
 
