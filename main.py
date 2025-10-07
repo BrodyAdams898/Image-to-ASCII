@@ -1,42 +1,20 @@
 from PIL import Image
-from pathlib import Path
-from prompt_toolkit.shortcuts import radiolist_dialog
 
+# Open and set image scale
+im = Image.open("images/ascii-pineapple.jpg")
+print(im.format, im.size, im.mode)
 
-#* Display available images to convert
-images_folder = Path("images")
-image_files = [str(file) for file in images_folder.iterdir() if file.suffix.lower() in [".png", ".jpg", ".jpeg"]]
+scale = 0.1
 
-# radiolist_dialog wants (value, label) tuples
-dialog_choices = [(file, Path(file).name) for file in image_files]
-
-file_path = radiolist_dialog(
-    title = "Image Picker",
-    text = "Choose an image to convert:",
-    values = dialog_choices,
-).run()
-
-if file_path is not None:
-    im = Image.open(file_path).convert("RGB")
-    print(im.format, im.size, im.mode)
-else:
-    print("No selection made.")
-
-#* Set  scale
-im_scale = float(input("Enter the images scale (Recommended 0.1 - 0.3): "))
-
-im_width = int(im.width * im_scale)
-im_height = int(im.height * im_scale)
+im_width = int(im.width * scale)
+im_height = int(im.height * scale)
 im_size = (im_width, im_height)
 
 im = im.resize(im_size)
-
-input(f"New Size is: {im_size}, Press ENTER to print")
-
+print(f"New Size is: {im_size}")
 
 
-#* Set ASCII characters
-ascii_chars = "─=#▒██"
+ascii_chars = "`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
 num_of_chars = len(ascii_chars)
 
 def getPixelBrightness(x, y):
