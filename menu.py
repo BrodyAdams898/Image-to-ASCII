@@ -36,7 +36,7 @@ class TerminalMenu:
         lines = [('bold underline', f'{self.title}\n')]
         for idx, option in enumerate(self.options):
             if idx == self.current_index:
-                lines.append(('bg:#00aa00 #ffffff bold', f'  → {option}\n'))
+                lines.append(('bg:#00aa00 #ffffff bold', f'  > {option}\n'))
             else:
                 lines.append(('', f'    {option}\n'))
         return lines
