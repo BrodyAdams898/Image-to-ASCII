@@ -103,12 +103,10 @@ def convertToAscii(ascii_chars, num_of_chars, brightness):
 
 
 # Create a matrix of RGB values for each pixel
-rgb_matrix = [[im.getpixel((x, y)) for x in range(im_width)]
-              for y in range(im_height)]
+rgb_matrix = [[im.getpixel((x, y)) for x in range(im_width)] for y in range(im_height)]
 
 # Create a matrix of brightness values for each pixel
-brightness_matrix = [[getPixelBrightness(x, y) for x in range(im_width)]
-                     for y in range(im_height)]
+brightness_matrix = [[getPixelBrightness(x, y) for x in range(im_width)] for y in range(im_height)]
 
 # Convert brightness values to ASCII characters
 ascii_matrix = [[
